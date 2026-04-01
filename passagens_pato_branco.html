@@ -3,305 +3,124 @@
 <head>
 <meta charset="UTF-8">
 <style>
-  @page {
-    size: A4;
-    margin: 20mm 15mm;
-  }
+  @page { size: A4; margin: 18mm 14mm; }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-    color: #1a1a2e;
-    background: #fff;
-    font-size: 11px;
-    line-height: 1.5;
-  }
+  body { font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; color: #1a1a2e; background: #fff; font-size: 10.5px; line-height: 1.45; }
 
-  .header {
-    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-    color: white;
-    padding: 30px 35px;
-    border-radius: 16px;
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  .header h1 {
-    font-size: 26px;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-    margin-bottom: 6px;
-  }
-  .header .subtitle {
-    font-size: 13px;
-    opacity: 0.85;
-    font-weight: 400;
-  }
-  .header .date-badge {
-    display: inline-block;
-    background: rgba(255,255,255,0.15);
-    border: 1px solid rgba(255,255,255,0.3);
-    border-radius: 20px;
-    padding: 5px 18px;
-    margin-top: 10px;
-    font-size: 13px;
-    font-weight: 600;
-  }
+  .header { background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); color: white; padding: 24px 30px; border-radius: 14px; margin-bottom: 14px; text-align: center; }
+  .header h1 { font-size: 24px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 4px; }
+  .header .subtitle { font-size: 12px; opacity: 0.85; }
 
-  .route-section {
-    border: 1px solid #e0e0e0;
-    border-radius: 14px;
-    margin-bottom: 18px;
-    overflow: hidden;
-    page-break-inside: avoid;
-  }
-  .route-header {
-    padding: 14px 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .route-header.direct {
-    background: linear-gradient(135deg, #00b09b, #96c93d);
-    color: white;
-  }
-  .route-header.connection {
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    color: white;
-  }
-  .route-header.connection2 {
-    background: linear-gradient(135deg, #f093fb, #f5576c);
-    color: white;
-  }
-  .route-title {
-    font-size: 16px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-  }
-  .route-airports {
-    font-size: 11px;
-    opacity: 0.9;
-    margin-top: 2px;
-  }
-  .route-badge {
-    background: rgba(255,255,255,0.25);
-    border: 1px solid rgba(255,255,255,0.4);
-    border-radius: 12px;
-    padding: 3px 12px;
-    font-size: 10px;
-    font-weight: 600;
-    text-transform: uppercase;
-  }
+  .alert-box { background: #fff3cd; border: 1px solid #ffc107; border-radius: 10px; padding: 10px 16px; margin-bottom: 14px; display: flex; align-items: flex-start; gap: 8px; }
+  .alert-box .alert-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .alert-box .alert-text { font-size: 10px; color: #664d03; line-height: 1.5; }
 
-  .flights-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  .flights-table th {
-    background: #f8f9fb;
-    padding: 9px 12px;
-    text-align: left;
-    font-size: 9px;
-    font-weight: 700;
-    text-transform: uppercase;
-    color: #666;
-    letter-spacing: 0.5px;
-    border-bottom: 2px solid #eee;
-  }
-  .flights-table td {
-    padding: 10px 12px;
-    border-bottom: 1px solid #f0f0f0;
-    font-size: 11px;
-    vertical-align: middle;
-  }
+  .option-header { background: linear-gradient(135deg, #1e3a5f, #2d6aa5); color: white; padding: 14px 20px; border-radius: 12px; margin-bottom: 12px; margin-top: 18px; display: flex; align-items: center; justify-content: space-between; page-break-before: auto; }
+  .option-header.alt { background: linear-gradient(135deg, #5b2c6f, #8e44ad); }
+  .option-title { font-size: 16px; font-weight: 700; }
+  .option-dates { font-size: 11px; opacity: 0.9; margin-top: 2px; }
+  .option-badge { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.35); border-radius: 16px; padding: 4px 14px; font-size: 10px; font-weight: 600; }
+
+  .schedule-bar { background: #e8f4fd; border: 1px solid #b8daff; border-radius: 8px; padding: 8px 14px; margin-bottom: 10px; font-size: 9.5px; color: #0c5460; }
+  .schedule-bar strong { color: #084298; }
+
+  .info-bar { background: #f0f4ff; border: 1px solid #d0daff; border-radius: 10px; padding: 10px 16px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .info-icon { font-size: 14px; flex-shrink: 0; }
+  .info-text { font-size: 9.5px; color: #444; line-height: 1.5; }
+
+  .route-section { border: 1px solid #e0e0e0; border-radius: 12px; margin-bottom: 12px; overflow: hidden; page-break-inside: avoid; }
+  .route-header { padding: 10px 18px; display: flex; align-items: center; justify-content: space-between; }
+  .route-header.direct { background: linear-gradient(135deg, #00b09b, #96c93d); color: white; }
+  .route-header.connection { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
+  .route-header.connection2 { background: linear-gradient(135deg, #f093fb, #f5576c); color: white; }
+  .route-title { font-size: 14px; font-weight: 700; letter-spacing: 0.3px; }
+  .route-airports { font-size: 10px; opacity: 0.9; margin-top: 1px; }
+  .route-badge { background: rgba(255,255,255,0.25); border: 1px solid rgba(255,255,255,0.4); border-radius: 10px; padding: 2px 10px; font-size: 9px; font-weight: 600; text-transform: uppercase; }
+
+  .flights-table { width: 100%; border-collapse: collapse; }
+  .flights-table th { background: #f8f9fb; padding: 7px 10px; text-align: left; font-size: 8px; font-weight: 700; text-transform: uppercase; color: #666; letter-spacing: 0.4px; border-bottom: 2px solid #eee; }
+  .flights-table td { padding: 8px 10px; border-bottom: 1px solid #f0f0f0; font-size: 10.5px; vertical-align: middle; }
   .flights-table tr:last-child td { border-bottom: none; }
-  .flights-table tr:hover { background: #fafbff; }
 
-  .airline-cell {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .airline-logo {
-    width: 22px;
-    height: 22px;
-    background: #003cc5;
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 8px;
-    font-weight: 800;
-  }
-  .airline-name {
-    font-weight: 600;
-    color: #1a1a2e;
-  }
+  .airline-cell { display: flex; align-items: center; gap: 5px; }
+  .airline-logo { width: 20px; height: 20px; background: #003cc5; border-radius: 5px; display: flex; align-items: center; justify-content: center; color: white; font-size: 7px; font-weight: 800; }
+  .airline-name { font-weight: 600; color: #1a1a2e; }
 
-  .time-display {
-    font-size: 13px;
-    font-weight: 700;
-    color: #1a1a2e;
-  }
-  .time-arrow {
-    color: #999;
-    margin: 0 4px;
-    font-size: 11px;
-  }
+  .time-display { font-size: 12px; font-weight: 700; color: #1a1a2e; }
+  .time-arrow { color: #999; margin: 0 3px; font-size: 10px; }
 
-  .stops-badge {
-    display: inline-block;
-    border-radius: 8px;
-    padding: 2px 8px;
-    font-size: 9px;
-    font-weight: 700;
-  }
+  .stops-badge { display: inline-block; border-radius: 6px; padding: 2px 7px; font-size: 8px; font-weight: 700; }
   .stops-0 { background: #e8f5e9; color: #2e7d32; }
   .stops-1 { background: #fff3e0; color: #e65100; }
   .stops-2 { background: #fce4ec; color: #c62828; }
 
-  .price-cell {
-    text-align: right;
-  }
-  .price-ida {
-    font-size: 11px;
-    color: #888;
-    margin-bottom: 1px;
-  }
-  .price-idavolta {
-    font-size: 16px;
-    font-weight: 800;
-    color: #1a1a2e;
-  }
-  .price-label {
-    font-size: 8px;
-    color: #999;
-    text-transform: uppercase;
-  }
+  .price-cell { text-align: right; }
+  .price-ida { font-size: 10px; color: #888; }
+  .price-idavolta { font-size: 14px; font-weight: 800; color: #1a1a2e; }
+  .price-label { font-size: 7.5px; color: #999; text-transform: uppercase; }
 
-  .btn-comprar {
-    display: inline-block;
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    color: white !important;
-    text-decoration: none;
-    padding: 7px 16px;
-    border-radius: 8px;
-    font-size: 10px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    text-align: center;
-    border: none;
-  }
-  .btn-comprar.green {
-    background: linear-gradient(135deg, #00b09b, #96c93d);
-  }
-  .btn-comprar.pink {
-    background: linear-gradient(135deg, #f093fb, #f5576c);
-  }
+  .btn-comprar { display: inline-block; background: linear-gradient(135deg, #667eea, #764ba2); color: white !important; text-decoration: none; padding: 6px 13px; border-radius: 7px; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; text-align: center; border: none; }
+  .btn-comprar.green { background: linear-gradient(135deg, #00b09b, #96c93d); }
+  .btn-comprar.pink { background: linear-gradient(135deg, #f093fb, #f5576c); }
 
-  .duration-cell {
-    font-weight: 600;
-    color: #444;
-  }
-  .connection-info {
-    font-size: 9px;
-    color: #888;
-    margin-top: 1px;
-  }
+  .duration-cell { font-weight: 600; color: #444; }
+  .connection-info { font-size: 8px; color: #888; margin-top: 1px; }
 
-  .info-bar {
-    background: #f0f4ff;
-    border: 1px solid #d0daff;
-    border-radius: 10px;
-    padding: 12px 20px;
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .info-icon {
-    font-size: 16px;
-    flex-shrink: 0;
-  }
-  .info-text {
-    font-size: 10px;
-    color: #444;
-    line-height: 1.5;
-  }
+  .best-tag { display: inline-block; background: #ff6b00; color: white; font-size: 7px; font-weight: 800; padding: 2px 6px; border-radius: 3px; text-transform: uppercase; margin-left: 4px; vertical-align: middle; }
 
-  .footer {
-    text-align: center;
-    padding: 16px;
-    color: #999;
-    font-size: 9px;
-    border-top: 1px solid #eee;
-    margin-top: 12px;
-  }
+  .summary-box { background: linear-gradient(135deg, #ffecd2, #fcb69f); border-radius: 10px; padding: 12px 18px; margin-bottom: 14px; page-break-inside: avoid; }
+  .summary-box.purple { background: linear-gradient(135deg, #e8daef, #d2b4de); }
+  .summary-title { font-size: 13px; font-weight: 700; color: #1a1a2e; margin-bottom: 6px; }
+  .summary-grid { display: flex; gap: 10px; }
+  .summary-card { flex: 1; background: white; border-radius: 8px; padding: 10px 12px; text-align: center; }
+  .summary-card .rank { font-size: 8px; color: #999; text-transform: uppercase; font-weight: 600; }
+  .summary-card .route-name { font-size: 11px; font-weight: 700; color: #1a1a2e; margin: 3px 0; }
+  .summary-card .card-price { font-size: 16px; font-weight: 800; color: #00875a; }
+  .summary-card .card-detail { font-size: 8px; color: #666; margin-top: 2px; }
 
-  .best-tag {
-    display: inline-block;
-    background: #ff6b00;
-    color: white;
-    font-size: 8px;
-    font-weight: 800;
-    padding: 2px 7px;
-    border-radius: 4px;
-    text-transform: uppercase;
-    margin-left: 6px;
-    vertical-align: middle;
-  }
+  .footer { text-align: center; padding: 12px; color: #999; font-size: 8px; border-top: 1px solid #eee; margin-top: 10px; }
 
-  .summary-box {
-    background: linear-gradient(135deg, #ffecd2, #fcb69f);
-    border-radius: 12px;
-    padding: 16px 24px;
-    margin-bottom: 18px;
-    page-break-inside: avoid;
-  }
-  .summary-title {
-    font-size: 14px;
-    font-weight: 700;
-    color: #1a1a2e;
-    margin-bottom: 8px;
-  }
-  .summary-grid {
-    display: flex;
-    gap: 12px;
-  }
-  .summary-card {
-    flex: 1;
-    background: white;
-    border-radius: 10px;
-    padding: 12px 14px;
-    text-align: center;
-  }
-  .summary-card .rank { font-size: 9px; color: #999; text-transform: uppercase; font-weight: 600; }
-  .summary-card .route-name { font-size: 12px; font-weight: 700; color: #1a1a2e; margin: 4px 0; }
-  .summary-card .card-price { font-size: 18px; font-weight: 800; color: #00875a; }
-  .summary-card .card-detail { font-size: 9px; color: #666; margin-top: 2px; }
+  .page-break { page-break-before: always; }
 </style>
 </head>
 <body>
 
 <!-- HEADER -->
 <div class="header">
-  <h1>Passagens Aereas — Pato Branco (PTO)</h1>
-  <div class="subtitle">Comparativo de rotas e precos para o Sudoeste do Parana</div>
-  <div class="date-badge">Ida: 08/08/2026 (Sabado)&nbsp;&nbsp;&bull;&nbsp;&nbsp;Volta: 15/08/2026 (Sabado)</div>
+  <h1>Passagens Aereas &mdash; Pato Branco (PTO)</h1>
+  <div class="subtitle">Comparativo de rotas e precos para o Sudoeste do Parana &mdash; 2 opcoes de data</div>
 </div>
 
-<!-- INFO BAR -->
-<div class="info-bar">
-  <div class="info-icon">&#9992;</div>
-  <div class="info-text">
-    <strong>Aeroporto de destino:</strong> Aeroporto Regional Prof. Juvenal Loureiro Cardoso (PTO/SBPO) &mdash; Pato Branco, PR<br>
-    <strong>Companhia operadora:</strong> Azul Linhas Aéreas (unica com voos comerciais para PTO) &mdash; Aeronave: ATR 72-600 (70 pax)
+<!-- ALERTA MALHA -->
+<div class="alert-box">
+  <div class="alert-icon">&#9888;</div>
+  <div class="alert-text">
+    <strong>Atencao:</strong> O dia 08/08/2026 e um <strong>sabado</strong> e nao ha voos para Pato Branco aos sabados.
+    Desde 28/02/2026 a Azul opera com malha reduzida em PTO. Abaixo estao as <strong>2 melhores opcoes de datas</strong> proximas ao periodo desejado.
   </div>
 </div>
 
-<!-- RANKING RESUMO -->
+<!-- MALHA ATUAL -->
+<div class="schedule-bar">
+  <strong>Malha atual (desde 28/02/2026):</strong>&nbsp;&nbsp;
+  CWB &harr; PTO: <strong>Seg, Qua, Sex</strong> (11:50&rarr;13:05)&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  VCP &harr; PTO: <strong>Dom, Ter, Qui</strong> (13:20&rarr;15:05)&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  Aeronave: ATR 72-600 (70 pax)
+</div>
+
+<!-- ========================================================= -->
+<!--                    OPCAO A: SEX 07/08 - SEX 14/08         -->
+<!-- ========================================================= -->
+<div class="option-header">
+  <div>
+    <div class="option-title">Opcao A &mdash; Via Curitiba (CWB)</div>
+    <div class="option-dates">Ida: 07/08/2026 (Sexta) &bull; Volta: 14/08/2026 (Sexta)</div>
+  </div>
+  <div class="option-badge">Recomendada</div>
+</div>
+
 <div class="summary-box">
-  <div class="summary-title">Ranking — Melhor Custo-Beneficio (ida + volta)</div>
+  <div class="summary-title">Ranking Opcao A &mdash; ida + volta (07/ago &harr; 14/ago)</div>
   <div class="summary-grid">
     <div class="summary-card">
       <div class="rank">1o Lugar</div>
@@ -319,351 +138,259 @@
       <div class="rank">3o Lugar</div>
       <div class="route-name">RAO &rarr; PTO</div>
       <div class="card-price">R$ 1.800</div>
-      <div class="card-detail">1 conexao (VCP) &bull; ~7h &bull; Azul</div>
+      <div class="card-detail">1-2 conexoes (VCP) &bull; ~7h &bull; Azul</div>
     </div>
   </div>
 </div>
 
-<!-- ============ ROTA 1: CWB → PTO ============ -->
+<!-- ROTA A1: CWB → PTO (Sex 07/08) -->
 <div class="route-section">
   <div class="route-header direct">
     <div>
       <div class="route-title">CWB &rarr; PTO <span class="best-tag">Melhor Opcao</span></div>
-      <div class="route-airports">Curitiba (Afonso Pena) &rarr; Pato Branco (Juvenal Cardoso)</div>
+      <div class="route-airports">Curitiba (Afonso Pena) &rarr; Pato Branco &bull; Sex 07/08 &harr; Sex 14/08</div>
     </div>
     <div class="route-badge">Voo Direto</div>
   </div>
   <table class="flights-table">
-    <thead>
-      <tr>
-        <th>Cia Aerea</th>
-        <th>Horario</th>
-        <th>Escalas</th>
-        <th>Duracao</th>
-        <th style="text-align:right">Preco (ida+volta)</th>
-        <th style="text-align:center">Comprar</th>
-      </tr>
-    </thead>
+    <thead><tr>
+      <th>Cia Aerea</th><th>Horario</th><th>Escalas</th><th>Duracao</th>
+      <th style="text-align:right">Preco (ida+volta)</th><th style="text-align:center">Comprar</th>
+    </tr></thead>
     <tbody>
       <tr>
-        <td>
-          <div class="airline-cell">
-            <div class="airline-logo">AD</div>
-            <div>
-              <div class="airline-name">Azul</div>
-              <div style="font-size:9px;color:#888">ATR 72-600</div>
-            </div>
-          </div>
-        </td>
-        <td>
-          <span class="time-display">11:50</span>
-          <span class="time-arrow">&rarr;</span>
-          <span class="time-display">13:05</span>
-        </td>
+        <td><div class="airline-cell"><div class="airline-logo">AD</div><div><div class="airline-name">Azul</div><div style="font-size:8px;color:#888">ATR 72-600</div></div></div></td>
+        <td><span class="time-display">11:50</span><span class="time-arrow">&rarr;</span><span class="time-display">13:05</span></td>
         <td><span class="stops-badge stops-0">Direto</span></td>
-        <td>
-          <div class="duration-cell">1h 15min</div>
-        </td>
-        <td class="price-cell">
-          <div class="price-ida">ida R$ 479</div>
-          <div class="price-idavolta">R$ 958</div>
-          <div class="price-label">ida + volta</div>
-        </td>
-        <td style="text-align:center">
-          <a class="btn-comprar green" href="https://www.voeazul.com.br/br/pt/home/selecao-voo?c%5B0%5D.ds=CWB&c%5B0%5D.as=PTO&c%5B0%5D.std=08/08/2026&c%5B1%5D.ds=PTO&c%5B1%5D.as=CWB&c%5B1%5D.std=08/15/2026&p%5B0%5D.t=ADT&p%5B0%5D.c=1&p%5B0%5D.cp=false&cc=BRL&f.dl=3&f.dr=3">COMPRAR</a>
-        </td>
+        <td><div class="duration-cell">1h 15min</div></td>
+        <td class="price-cell"><div class="price-ida">ida R$ 479</div><div class="price-idavolta">R$ 958</div><div class="price-label">ida + volta</div></td>
+        <td style="text-align:center"><a class="btn-comprar green" href="https://www.voeazul.com.br/br/pt/home/selecao-voo?c%5B0%5D.ds=CWB&c%5B0%5D.as=PTO&c%5B0%5D.std=08/07/2026&c%5B1%5D.ds=PTO&c%5B1%5D.as=CWB&c%5B1%5D.std=08/14/2026&p%5B0%5D.t=ADT&p%5B0%5D.c=1&cc=BRL">COMPRAR</a></td>
       </tr>
       <tr>
-        <td>
-          <div class="airline-cell">
-            <div class="airline-logo">AD</div>
-            <div>
-              <div class="airline-name">Azul</div>
-              <div style="font-size:9px;color:#888">via Decolar</div>
-            </div>
-          </div>
-        </td>
-        <td>
-          <span class="time-display">11:50</span>
-          <span class="time-arrow">&rarr;</span>
-          <span class="time-display">13:05</span>
-        </td>
+        <td><div class="airline-cell"><div class="airline-logo">AD</div><div><div class="airline-name">Azul</div><div style="font-size:8px;color:#888">via Decolar</div></div></div></td>
+        <td><span class="time-display">11:50</span><span class="time-arrow">&rarr;</span><span class="time-display">13:05</span></td>
         <td><span class="stops-badge stops-0">Direto</span></td>
-        <td>
-          <div class="duration-cell">1h 15min</div>
-        </td>
-        <td class="price-cell">
-          <div class="price-ida">ida R$ 728</div>
-          <div class="price-idavolta">R$ 1.456</div>
-          <div class="price-label">ida + volta</div>
-        </td>
-        <td style="text-align:center">
-          <a class="btn-comprar green" href="https://www.decolar.com/shop/flights/results/roundtrip/CWB/PTO/2026-08-08/2026-08-15/1/0/0/">COMPRAR</a>
-        </td>
+        <td><div class="duration-cell">1h 15min</div></td>
+        <td class="price-cell"><div class="price-ida">ida R$ 728</div><div class="price-idavolta">R$ 1.456</div><div class="price-label">ida + volta</div></td>
+        <td style="text-align:center"><a class="btn-comprar green" href="https://www.decolar.com/shop/flights/results/roundtrip/CWB/PTO/2026-08-07/2026-08-14/1/0/0/">COMPRAR</a></td>
       </tr>
       <tr>
-        <td>
-          <div class="airline-cell">
-            <div class="airline-logo">AD</div>
-            <div>
-              <div class="airline-name">Azul</div>
-              <div style="font-size:9px;color:#888">via MaxMilhas</div>
-            </div>
-          </div>
-        </td>
-        <td>
-          <span class="time-display">11:50</span>
-          <span class="time-arrow">&rarr;</span>
-          <span class="time-display">13:05</span>
-        </td>
+        <td><div class="airline-cell"><div class="airline-logo">AD</div><div><div class="airline-name">Azul</div><div style="font-size:8px;color:#888">via MaxMilhas</div></div></div></td>
+        <td><span class="time-display">11:50</span><span class="time-arrow">&rarr;</span><span class="time-display">13:05</span></td>
         <td><span class="stops-badge stops-0">Direto</span></td>
-        <td>
-          <div class="duration-cell">1h 15min</div>
-        </td>
-        <td class="price-cell">
-          <div class="price-ida">ida R$ 333</div>
-          <div class="price-idavolta">R$ 666</div>
-          <div class="price-label">ida + volta (milhas)</div>
-        </td>
-        <td style="text-align:center">
-          <a class="btn-comprar green" href="https://www.maxmilhas.com.br/busca-passagens-aereas/RT/CWB/PTO/2026-08-08/2026-08-15/1/0/0/EC">COMPRAR</a>
-        </td>
+        <td><div class="duration-cell">1h 15min</div></td>
+        <td class="price-cell"><div class="price-ida">ida R$ 333</div><div class="price-idavolta">R$ 666</div><div class="price-label">ida + volta (milhas)</div></td>
+        <td style="text-align:center"><a class="btn-comprar green" href="https://www.maxmilhas.com.br/busca-passagens-aereas/RT/CWB/PTO/2026-08-07/2026-08-14/1/0/0/EC">COMPRAR</a></td>
       </tr>
     </tbody>
   </table>
 </div>
 
-<!-- ============ ROTA 2: NVT → PTO ============ -->
+<!-- ROTA A2: NVT → PTO (Sex 07/08) -->
 <div class="route-section">
   <div class="route-header connection">
     <div>
       <div class="route-title">NVT &rarr; PTO</div>
-      <div class="route-airports">Navegantes (Min. V. Konder) &rarr; Pato Branco (Juvenal Cardoso)</div>
+      <div class="route-airports">Navegantes &rarr; Pato Branco &bull; Sex 07/08 &harr; Sex 14/08</div>
     </div>
     <div class="route-badge">1 Conexao</div>
   </div>
   <table class="flights-table">
-    <thead>
-      <tr>
-        <th>Cia Aerea</th>
-        <th>Horario</th>
-        <th>Escalas</th>
-        <th>Duracao</th>
-        <th style="text-align:right">Preco (ida+volta)</th>
-        <th style="text-align:center">Comprar</th>
-      </tr>
-    </thead>
+    <thead><tr>
+      <th>Cia Aerea</th><th>Horario</th><th>Escalas</th><th>Duracao</th>
+      <th style="text-align:right">Preco (ida+volta)</th><th style="text-align:center">Comprar</th>
+    </tr></thead>
     <tbody>
       <tr>
-        <td>
-          <div class="airline-cell">
-            <div class="airline-logo">AD</div>
-            <div>
-              <div class="airline-name">Azul</div>
-              <div style="font-size:9px;color:#888">ATR 72 + ATR 72</div>
-            </div>
-          </div>
-        </td>
-        <td>
-          <span class="time-display">08:30</span>
-          <span class="time-arrow">&rarr;</span>
-          <span class="time-display">13:05</span>
-        </td>
-        <td>
-          <span class="stops-badge stops-1">1 parada</span>
-          <div class="connection-info">via CWB (Curitiba)</div>
-        </td>
-        <td>
-          <div class="duration-cell">~3h 30min</div>
-        </td>
-        <td class="price-cell">
-          <div class="price-ida">ida ~R$ 700</div>
-          <div class="price-idavolta">R$ 1.400</div>
-          <div class="price-label">ida + volta</div>
-        </td>
-        <td style="text-align:center">
-          <a class="btn-comprar" href="https://www.kayak.com.br/voos/NVT-PTO/2026-08-08/2026-08-15?sort=bestflight_a">COMPRAR</a>
-        </td>
+        <td><div class="airline-cell"><div class="airline-logo">AD</div><div><div class="airline-name">Azul</div><div style="font-size:8px;color:#888">via Curitiba</div></div></div></td>
+        <td><span class="time-display">~08:30</span><span class="time-arrow">&rarr;</span><span class="time-display">13:05</span></td>
+        <td><span class="stops-badge stops-1">1 parada</span><div class="connection-info">via CWB (Curitiba)</div></td>
+        <td><div class="duration-cell">~3h 30min</div></td>
+        <td class="price-cell"><div class="price-ida">ida ~R$ 700</div><div class="price-idavolta">R$ 1.400</div><div class="price-label">ida + volta</div></td>
+        <td style="text-align:center"><a class="btn-comprar" href="https://www.kayak.com.br/voos/NVT-PTO/2026-08-07/2026-08-14?sort=bestflight_a">COMPRAR</a></td>
       </tr>
       <tr>
-        <td>
-          <div class="airline-cell">
-            <div class="airline-logo">AD</div>
-            <div>
-              <div class="airline-name">Azul</div>
-              <div style="font-size:9px;color:#888">via Decolar</div>
-            </div>
-          </div>
-        </td>
-        <td>
-          <span class="time-display">06:00</span>
-          <span class="time-arrow">&rarr;</span>
-          <span class="time-display">15:05</span>
-        </td>
-        <td>
-          <span class="stops-badge stops-1">1 parada</span>
-          <div class="connection-info">via VCP (Campinas)</div>
-        </td>
-        <td>
-          <div class="duration-cell">~5h - 7h</div>
-        </td>
-        <td class="price-cell">
-          <div class="price-ida">ida ~R$ 900</div>
-          <div class="price-idavolta">R$ 1.800</div>
-          <div class="price-label">ida + volta</div>
-        </td>
-        <td style="text-align:center">
-          <a class="btn-comprar" href="https://www.decolar.com/shop/flights/results/roundtrip/NVT/PTO/2026-08-08/2026-08-15/1/0/0/">COMPRAR</a>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <div class="airline-cell">
-            <div class="airline-logo">AD</div>
-            <div>
-              <div class="airline-name">Azul</div>
-              <div style="font-size:9px;color:#888">via Skyscanner</div>
-            </div>
-          </div>
-        </td>
-        <td>
-          <span class="time-display">08:30</span>
-          <span class="time-arrow">&rarr;</span>
-          <span class="time-display">13:05</span>
-        </td>
-        <td>
-          <span class="stops-badge stops-1">1 parada</span>
-          <div class="connection-info">via CWB (Curitiba)</div>
-        </td>
-        <td>
-          <div class="duration-cell">~3h 30min</div>
-        </td>
-        <td class="price-cell">
-          <div class="price-ida">ida ~R$ 1.093</div>
-          <div class="price-idavolta">R$ 2.185</div>
-          <div class="price-label">ida + volta</div>
-        </td>
-        <td style="text-align:center">
-          <a class="btn-comprar" href="https://www.skyscanner.com.br/transporte/voos/nvt/pto/260808/260815/">COMPRAR</a>
-        </td>
+        <td><div class="airline-cell"><div class="airline-logo">AD</div><div><div class="airline-name">Azul</div><div style="font-size:8px;color:#888">via Skyscanner</div></div></div></td>
+        <td><span class="time-display">~08:30</span><span class="time-arrow">&rarr;</span><span class="time-display">13:05</span></td>
+        <td><span class="stops-badge stops-1">1 parada</span><div class="connection-info">via CWB (Curitiba)</div></td>
+        <td><div class="duration-cell">~3h 30min</div></td>
+        <td class="price-cell"><div class="price-ida">ida ~R$ 1.093</div><div class="price-idavolta">R$ 2.185</div><div class="price-label">ida + volta</div></td>
+        <td style="text-align:center"><a class="btn-comprar" href="https://www.skyscanner.com.br/transporte/voos/nvt/pto/260807/260814/">COMPRAR</a></td>
       </tr>
     </tbody>
   </table>
 </div>
 
-<!-- ============ ROTA 3: RAO → PTO ============ -->
+<!-- ROTA A3: RAO → PTO (Sex 07/08) -->
 <div class="route-section">
   <div class="route-header connection2">
     <div>
       <div class="route-title">RAO &rarr; PTO</div>
-      <div class="route-airports">Ribeirao Preto (Dr. Leite Lopes) &rarr; Pato Branco (Juvenal Cardoso)</div>
+      <div class="route-airports">Ribeirao Preto &rarr; Pato Branco &bull; Sex 07/08 &harr; Sex 14/08</div>
     </div>
     <div class="route-badge">1-2 Conexoes</div>
   </div>
   <table class="flights-table">
-    <thead>
-      <tr>
-        <th>Cia Aerea</th>
-        <th>Horario</th>
-        <th>Escalas</th>
-        <th>Duracao</th>
-        <th style="text-align:right">Preco (ida+volta)</th>
-        <th style="text-align:center">Comprar</th>
-      </tr>
-    </thead>
+    <thead><tr>
+      <th>Cia Aerea</th><th>Horario</th><th>Escalas</th><th>Duracao</th>
+      <th style="text-align:right">Preco (ida+volta)</th><th style="text-align:center">Comprar</th>
+    </tr></thead>
     <tbody>
       <tr>
-        <td>
-          <div class="airline-cell">
-            <div class="airline-logo">AD</div>
-            <div>
-              <div class="airline-name">Azul</div>
-              <div style="font-size:9px;color:#888">RAO-VCP-PTO</div>
-            </div>
-          </div>
-        </td>
-        <td>
-          <span class="time-display">~07:00</span>
-          <span class="time-arrow">&rarr;</span>
-          <span class="time-display">~15:05</span>
-        </td>
-        <td>
-          <span class="stops-badge stops-1">1 parada</span>
-          <div class="connection-info">via VCP (Campinas)</div>
-        </td>
-        <td>
-          <div class="duration-cell">~6h - 8h</div>
-        </td>
-        <td class="price-cell">
-          <div class="price-ida">ida ~R$ 800</div>
-          <div class="price-idavolta">R$ 1.600</div>
-          <div class="price-label">ida + volta</div>
-        </td>
-        <td style="text-align:center">
-          <a class="btn-comprar pink" href="https://www.decolar.com/shop/flights/results/roundtrip/RAO/PTO/2026-08-08/2026-08-15/1/0/0/">COMPRAR</a>
-        </td>
+        <td><div class="airline-cell"><div class="airline-logo">AD</div><div><div class="airline-name">Azul</div><div style="font-size:8px;color:#888">RAO-VCP-CWB-PTO</div></div></div></td>
+        <td><span class="time-display">~06:00</span><span class="time-arrow">&rarr;</span><span class="time-display">~13:05</span></td>
+        <td><span class="stops-badge stops-2">2 paradas</span><div class="connection-info">via VCP + CWB</div></td>
+        <td><div class="duration-cell">~7h</div></td>
+        <td class="price-cell"><div class="price-ida">ida ~R$ 900</div><div class="price-idavolta">R$ 1.800</div><div class="price-label">ida + volta</div></td>
+        <td style="text-align:center"><a class="btn-comprar pink" href="https://www.decolar.com/shop/flights/results/roundtrip/RAO/PTO/2026-08-07/2026-08-14/1/0/0/">COMPRAR</a></td>
       </tr>
       <tr>
-        <td>
-          <div class="airline-cell">
-            <div class="airline-logo">AD</div>
-            <div>
-              <div class="airline-name">Azul</div>
-              <div style="font-size:9px;color:#888">RAO-VCP-CWB-PTO</div>
-            </div>
-          </div>
-        </td>
-        <td>
-          <span class="time-display">~06:00</span>
-          <span class="time-arrow">&rarr;</span>
-          <span class="time-display">~17:00</span>
-        </td>
-        <td>
-          <span class="stops-badge stops-2">2 paradas</span>
-          <div class="connection-info">via VCP + CWB</div>
-        </td>
-        <td>
-          <div class="duration-cell">~8h - 12h</div>
-        </td>
-        <td class="price-cell">
-          <div class="price-ida">ida ~R$ 1.000</div>
-          <div class="price-idavolta">R$ 2.000</div>
-          <div class="price-label">ida + volta</div>
-        </td>
-        <td style="text-align:center">
-          <a class="btn-comprar pink" href="https://www.maxmilhas.com.br/busca-passagens-aereas/RT/RAO/PTO/2026-08-08/2026-08-15/1/0/0/EC">COMPRAR</a>
-        </td>
+        <td><div class="airline-cell"><div class="airline-logo">AD</div><div><div class="airline-name">Azul</div><div style="font-size:8px;color:#888">via Kayak</div></div></div></td>
+        <td><span class="time-display">~06:00</span><span class="time-arrow">&rarr;</span><span class="time-display">~13:05</span></td>
+        <td><span class="stops-badge stops-2">2 paradas</span><div class="connection-info">via VCP + CWB</div></td>
+        <td><div class="duration-cell">~7h</div></td>
+        <td class="price-cell"><div class="price-ida">ida ~R$ 900</div><div class="price-idavolta">R$ 1.800</div><div class="price-label">ida + volta</div></td>
+        <td style="text-align:center"><a class="btn-comprar pink" href="https://www.kayak.com.br/voos/RAO-PTO/2026-08-07/2026-08-14?sort=bestflight_a">COMPRAR</a></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ========================================================= -->
+<!--               OPCAO B: DOM 09/08 - QUI 13/08              -->
+<!-- ========================================================= -->
+<div class="option-header alt page-break" style="page-break-before:always">
+  <div>
+    <div class="option-title">Opcao B &mdash; Via Campinas (VCP)</div>
+    <div class="option-dates">Ida: 09/08/2026 (Domingo) &bull; Volta: 13/08/2026 (Quinta)</div>
+  </div>
+  <div class="option-badge">Alternativa</div>
+</div>
+
+<div class="summary-box purple">
+  <div class="summary-title">Ranking Opcao B &mdash; ida + volta (09/ago &harr; 13/ago)</div>
+  <div class="summary-grid">
+    <div class="summary-card">
+      <div class="rank">1o Lugar</div>
+      <div class="route-name">CWB &rarr; VCP &rarr; PTO</div>
+      <div class="card-price">R$ 1.200</div>
+      <div class="card-detail">1 conexao (VCP) &bull; ~5h &bull; Azul</div>
+    </div>
+    <div class="summary-card">
+      <div class="rank">2o Lugar</div>
+      <div class="route-name">NVT &rarr; VCP &rarr; PTO</div>
+      <div class="card-price">R$ 1.800</div>
+      <div class="card-detail">1 conexao (VCP) &bull; ~6h &bull; Azul</div>
+    </div>
+    <div class="summary-card">
+      <div class="rank">3o Lugar</div>
+      <div class="route-name">RAO &rarr; VCP &rarr; PTO</div>
+      <div class="card-price">R$ 1.600</div>
+      <div class="card-detail">1 conexao (VCP) &bull; ~6h &bull; Azul</div>
+    </div>
+  </div>
+</div>
+
+<!-- ROTA B1: CWB → PTO via VCP (Dom 09/08) -->
+<div class="route-section">
+  <div class="route-header connection">
+    <div>
+      <div class="route-title">CWB &rarr; PTO</div>
+      <div class="route-airports">Curitiba &rarr; Campinas &rarr; Pato Branco &bull; Dom 09/08 &harr; Qui 13/08</div>
+    </div>
+    <div class="route-badge">1 Conexao</div>
+  </div>
+  <table class="flights-table">
+    <thead><tr>
+      <th>Cia Aerea</th><th>Horario</th><th>Escalas</th><th>Duracao</th>
+      <th style="text-align:right">Preco (ida+volta)</th><th style="text-align:center">Comprar</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td><div class="airline-cell"><div class="airline-logo">AD</div><div><div class="airline-name">Azul</div><div style="font-size:8px;color:#888">CWB-VCP-PTO</div></div></div></td>
+        <td><span class="time-display">~08:00</span><span class="time-arrow">&rarr;</span><span class="time-display">15:05</span></td>
+        <td><span class="stops-badge stops-1">1 parada</span><div class="connection-info">via VCP (Campinas)</div></td>
+        <td><div class="duration-cell">~5h</div></td>
+        <td class="price-cell"><div class="price-ida">ida ~R$ 600</div><div class="price-idavolta">R$ 1.200</div><div class="price-label">ida + volta</div></td>
+        <td style="text-align:center"><a class="btn-comprar" href="https://www.decolar.com/shop/flights/results/roundtrip/CWB/PTO/2026-08-09/2026-08-13/1/0/0/">COMPRAR</a></td>
       </tr>
       <tr>
-        <td>
-          <div class="airline-cell">
-            <div class="airline-logo">AD</div>
-            <div>
-              <div class="airline-name">Azul</div>
-              <div style="font-size:9px;color:#888">via Kayak</div>
-            </div>
-          </div>
-        </td>
-        <td>
-          <span class="time-display">~07:00</span>
-          <span class="time-arrow">&rarr;</span>
-          <span class="time-display">~15:05</span>
-        </td>
-        <td>
-          <span class="stops-badge stops-1">1 parada</span>
-          <div class="connection-info">via VCP (Campinas)</div>
-        </td>
-        <td>
-          <div class="duration-cell">~6h - 8h</div>
-        </td>
-        <td class="price-cell">
-          <div class="price-ida">ida ~R$ 900</div>
-          <div class="price-idavolta">R$ 1.800</div>
-          <div class="price-label">ida + volta</div>
-        </td>
-        <td style="text-align:center">
-          <a class="btn-comprar pink" href="https://www.kayak.com.br/voos/RAO-PTO/2026-08-08/2026-08-15?sort=bestflight_a">COMPRAR</a>
-        </td>
+        <td><div class="airline-cell"><div class="airline-logo">AD</div><div><div class="airline-name">Azul</div><div style="font-size:8px;color:#888">via MaxMilhas</div></div></div></td>
+        <td><span class="time-display">~08:00</span><span class="time-arrow">&rarr;</span><span class="time-display">15:05</span></td>
+        <td><span class="stops-badge stops-1">1 parada</span><div class="connection-info">via VCP (Campinas)</div></td>
+        <td><div class="duration-cell">~5h</div></td>
+        <td class="price-cell"><div class="price-ida">ida ~R$ 500</div><div class="price-idavolta">R$ 1.000</div><div class="price-label">ida + volta (milhas)</div></td>
+        <td style="text-align:center"><a class="btn-comprar" href="https://www.maxmilhas.com.br/busca-passagens-aereas/RT/CWB/PTO/2026-08-09/2026-08-13/1/0/0/EC">COMPRAR</a></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ROTA B2: NVT → PTO via VCP (Dom 09/08) -->
+<div class="route-section">
+  <div class="route-header connection">
+    <div>
+      <div class="route-title">NVT &rarr; PTO</div>
+      <div class="route-airports">Navegantes &rarr; Campinas &rarr; Pato Branco &bull; Dom 09/08 &harr; Qui 13/08</div>
+    </div>
+    <div class="route-badge">1 Conexao</div>
+  </div>
+  <table class="flights-table">
+    <thead><tr>
+      <th>Cia Aerea</th><th>Horario</th><th>Escalas</th><th>Duracao</th>
+      <th style="text-align:right">Preco (ida+volta)</th><th style="text-align:center">Comprar</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td><div class="airline-cell"><div class="airline-logo">AD</div><div><div class="airline-name">Azul</div><div style="font-size:8px;color:#888">NVT-VCP-PTO</div></div></div></td>
+        <td><span class="time-display">~06:00</span><span class="time-arrow">&rarr;</span><span class="time-display">15:05</span></td>
+        <td><span class="stops-badge stops-1">1 parada</span><div class="connection-info">via VCP (Campinas)</div></td>
+        <td><div class="duration-cell">~6h</div></td>
+        <td class="price-cell"><div class="price-ida">ida ~R$ 900</div><div class="price-idavolta">R$ 1.800</div><div class="price-label">ida + volta</div></td>
+        <td style="text-align:center"><a class="btn-comprar" href="https://www.kayak.com.br/voos/NVT-PTO/2026-08-09/2026-08-13?sort=bestflight_a">COMPRAR</a></td>
+      </tr>
+      <tr>
+        <td><div class="airline-cell"><div class="airline-logo">AD</div><div><div class="airline-name">Azul</div><div style="font-size:8px;color:#888">via Skyscanner</div></div></div></td>
+        <td><span class="time-display">~06:00</span><span class="time-arrow">&rarr;</span><span class="time-display">15:05</span></td>
+        <td><span class="stops-badge stops-1">1 parada</span><div class="connection-info">via VCP (Campinas)</div></td>
+        <td><div class="duration-cell">~6h</div></td>
+        <td class="price-cell"><div class="price-ida">ida ~R$ 1.093</div><div class="price-idavolta">R$ 2.185</div><div class="price-label">ida + volta</div></td>
+        <td style="text-align:center"><a class="btn-comprar" href="https://www.skyscanner.com.br/transporte/voos/nvt/pto/260809/260813/">COMPRAR</a></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ROTA B3: RAO → PTO via VCP (Dom 09/08) -->
+<div class="route-section">
+  <div class="route-header connection2">
+    <div>
+      <div class="route-title">RAO &rarr; PTO</div>
+      <div class="route-airports">Ribeirao Preto &rarr; Campinas &rarr; Pato Branco &bull; Dom 09/08 &harr; Qui 13/08</div>
+    </div>
+    <div class="route-badge">1 Conexao</div>
+  </div>
+  <table class="flights-table">
+    <thead><tr>
+      <th>Cia Aerea</th><th>Horario</th><th>Escalas</th><th>Duracao</th>
+      <th style="text-align:right">Preco (ida+volta)</th><th style="text-align:center">Comprar</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td><div class="airline-cell"><div class="airline-logo">AD</div><div><div class="airline-name">Azul</div><div style="font-size:8px;color:#888">RAO-VCP-PTO</div></div></div></td>
+        <td><span class="time-display">~07:00</span><span class="time-arrow">&rarr;</span><span class="time-display">15:05</span></td>
+        <td><span class="stops-badge stops-1">1 parada</span><div class="connection-info">via VCP (Campinas)</div></td>
+        <td><div class="duration-cell">~6h</div></td>
+        <td class="price-cell"><div class="price-ida">ida ~R$ 800</div><div class="price-idavolta">R$ 1.600</div><div class="price-label">ida + volta</div></td>
+        <td style="text-align:center"><a class="btn-comprar pink" href="https://www.decolar.com/shop/flights/results/roundtrip/RAO/PTO/2026-08-09/2026-08-13/1/0/0/">COMPRAR</a></td>
+      </tr>
+      <tr>
+        <td><div class="airline-cell"><div class="airline-logo">AD</div><div><div class="airline-name">Azul</div><div style="font-size:8px;color:#888">via MaxMilhas</div></div></div></td>
+        <td><span class="time-display">~07:00</span><span class="time-arrow">&rarr;</span><span class="time-display">15:05</span></td>
+        <td><span class="stops-badge stops-1">1 parada</span><div class="connection-info">via VCP (Campinas)</div></td>
+        <td><div class="duration-cell">~6h</div></td>
+        <td class="price-cell"><div class="price-ida">ida ~R$ 800</div><div class="price-idavolta">R$ 1.600</div><div class="price-label">ida + volta</div></td>
+        <td style="text-align:center"><a class="btn-comprar pink" href="https://www.maxmilhas.com.br/busca-passagens-aereas/RT/RAO/PTO/2026-08-09/2026-08-13/1/0/0/EC">COMPRAR</a></td>
       </tr>
     </tbody>
   </table>
@@ -673,14 +400,14 @@
 <div class="info-bar">
   <div class="info-icon">&#9888;</div>
   <div class="info-text">
-    <strong>Aviso:</strong> Precos estimados com base em dados publicos de abril/2026. Valores reais podem variar conforme disponibilidade e antecedencia.
-    Os botoes "COMPRAR" direcionam para os sites oficiais onde voce pode consultar precos atualizados e finalizar a compra.
-    <strong>Dica:</strong> Reserve com pelo menos 100 dias de antecedencia para melhores precos. O melhor dia para comprar e segunda-feira.
+    <strong>Aviso:</strong> Precos estimados com base em dados publicos de abril/2026. Valores reais podem variar conforme disponibilidade.
+    Os botoes "COMPRAR" abrem direto na busca do site com origem, destino e datas preenchidas.<br>
+    <strong>Dica:</strong> Reserve com pelo menos 100 dias de antecedencia. A Azul permite compra com ate 15 meses de antecedencia.
   </div>
 </div>
 
 <div class="footer">
-  Gerado em 01/04/2026 &bull; Dados: Azul, Google Flights, Kayak, Skyscanner, Decolar, MaxMilhas, Trip.com &bull; Destino: Pato Branco &mdash; PR
+  Gerado em 01/04/2026 &bull; Dados: Azul, Kayak, Skyscanner, Decolar, MaxMilhas &bull; Destino: Pato Branco &mdash; PR &bull; Malha vigente desde 28/02/2026
 </div>
 
 </body>
