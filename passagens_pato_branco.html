@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<style>
+  @page {
+    size: A4;
+    margin: 20mm 15mm;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    color: #1a1a2e;
+    background: #fff;
+    font-size: 11px;
+    line-height: 1.5;
+  }
+
+  .header {
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    color: white;
+    padding: 30px 35px;
+    border-radius: 16px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .header h1 {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 6px;
+  }
+  .header .subtitle {
+    font-size: 13px;
+    opacity: 0.85;
+    font-weight: 400;
+  }
+  .header .date-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    padding: 5px 18px;
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .route-section {
+    border: 1px solid #e0e0e0;
+    border-radius: 14px;
+    margin-bottom: 18px;
+    overflow: hidden;
+    page-break-inside: avoid;
+  }
+  .route-header {
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .route-header.direct {
+    background: linear-gradient(135deg, #00b09b, #96c93d);
+    color: white;
+  }
+  .route-header.connection {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+  }
+  .route-header.connection2 {
+    background: linear-gradient(135deg, #f093fb, #f5576c);
+    color: white;
+  }
+  .route-title {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  .route-airports {
+    font-size: 11px;
+    opacity: 0.9;
+    margin-top: 2px;
+  }
+  .route-badge {
+    background: rgba(255,255,255,0.25);
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 12px;
+    padding: 3px 12px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .flights-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .flights-table th {
+    background: #f8f9fb;
+    padding: 9px 12px;
+    text-align: left;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #666;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid #eee;
+  }
+  .flights-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 11px;
+    vertical-align: middle;
+  }
+  .flights-table tr:last-child td { border-bottom: none; }
+  .flights-table tr:hover { background: #fafbff; }
+
+  .airline-cell {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .airline-logo {
+    width: 22px;
+    height: 22px;
+    background: #003cc5;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 8px;
+    font-weight: 800;
+  }
+  .airline-name {
+    font-weight: 600;
+    color: #1a1a2e;
+  }
+
+  .time-display {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1a1a2e;
+  }
+  .time-arrow {
+    color: #999;
+    margin: 0 4px;
+    font-size: 11px;
+  }
+
+  .stops-badge {
+    display: inline-block;
+    border-radius: 8px;
+    padding: 2px 8px;
+    font-size: 9px;
+    font-weight: 700;
+  }
+  .stops-0 { background: #e8f5e9; color: #2e7d32; }
+  .stops-1 { background: #fff3e0; color: #e65100; }
+  .stops-2 { background: #fce4ec; color: #c62828; }
+
+  .price-cell {
+    text-align: right;
+  }
+  .price-ida {
+    font-size: 11px;
+    color: #888;
+    margin-bottom: 1px;
+  }
+  .price-idavolta {
+    font-size: 16px;
+    font-weight: 800;
+    color: #1a1a2e;
+  }
+  .price-label {
+    font-size: 8px;
+    color: #999;
+    text-transform: uppercase;
+  }
+
+  .btn-comprar {
+    display: inline-block;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white !important;
+    text-decoration: none;
+    padding: 7px 16px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    text-align: center;
+    border: none;
+  }
+  .btn-comprar.green {
+    background: linear-gradient(135deg, #00b09b, #96c93d);
+  }
+  .btn-comprar.pink {
+    background: linear-gradient(135deg, #f093fb, #f5576c);
+  }
+
+  .duration-cell {
+    font-weight: 600;
+    color: #444;
+  }
+  .connection-info {
+    font-size: 9px;
+    color: #888;
+    margin-top: 1px;
+  }
+
+  .info-bar {
+    background: #f0f4ff;
+    border: 1px solid #d0daff;
+    border-radius: 10px;
+    padding: 12px 20px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .info-icon {
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .info-text {
+    font-size: 10px;
+    color: #444;
+    line-height: 1.5;
+  }
+
+  .footer {
+    text-align: center;
+    padding: 16px;
+    color: #999;
+    font-size: 9px;
+    border-top: 1px solid #eee;
+    margin-top: 12px;
+  }
+
+  .best-tag {
+    display: inline-block;
+    background: #ff6b00;
+    color: white;
+    font-size: 8px;
+    font-weight: 800;
+    padding: 2px 7px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  .summary-box {
+    background: linear-gradient(135deg, #ffecd2, #fcb69f);
+    border-radius: 12px;
+    padding: 16px 24px;
+    margin-bottom: 18px;
+    page-break-inside: avoid;
+  }
+  .summary-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 8px;
+  }
+  .summary-grid {
+    display: flex;
+    gap: 12px;
+  }
+  .summary-card {
+    flex: 1;
+    background: white;
+    border-radius: 10px;
+    padding: 12px 14px;
+    text-align: center;
+  }
+  .summary-card .rank { font-size: 9px; color: #999; text-transform: uppercase; font-weight: 600; }
+  .summary-card .route-name { font-size: 12px; font-weight: 700; color: #1a1a2e; margin: 4px 0; }
+  .summary-card .card-price { font-size: 18px; font-weight: 800; color: #00875a; }
+  .summary-card .card-detail { font-size: 9px; color: #666; margin-top: 2px; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <h1>Passagens Aereas — Pato Branco (PTO)</h1>
+  <div class="subtitle">Comparativo de rotas e precos para o Sudoeste do Parana</div>
+  <div class="date-badge">Ida: 08/08/2026 (Sabado)&nbsp;&nbsp;&bull;&nbsp;&nbsp;Volta: 15/08/2026 (Sabado)</div>
+</div>
+
+<!-- INFO BAR -->
+<div class="info-bar">
+  <div class="info-icon">&#9992;</div>
+  <div class="info-text">
+    <strong>Aeroporto de destino:</strong> Aeroporto Regional Prof. Juvenal Loureiro Cardoso (PTO/SBPO) &mdash; Pato Branco, PR<br>
+    <strong>Companhia operadora:</strong> Azul Linhas Aéreas (unica com voos comerciais para PTO) &mdash; Aeronave: ATR 72-600 (70 pax)
+  </div>
+</div>
+
+<!-- RANKING RESUMO -->
+<div class="summary-box">
+  <div class="summary-title">Ranking — Melhor Custo-Beneficio (ida + volta)</div>
+  <div class="summary-grid">
+    <div class="summary-card">
+      <div class="rank">1o Lugar</div>
+      <div class="route-name">CWB &rarr; PTO</div>
+      <div class="card-price">R$ 958</div>
+      <div class="card-detail">Voo direto &bull; 1h15 &bull; Azul</div>
+    </div>
+    <div class="summary-card">
+      <div class="rank">2o Lugar</div>
+      <div class="route-name">NVT &rarr; PTO</div>
+      <div class="card-price">R$ 1.400</div>
+      <div class="card-detail">1 conexao (CWB) &bull; ~3h30 &bull; Azul</div>
+    </div>
+    <div class="summary-card">
+      <div class="rank">3o Lugar</div>
+      <div class="route-name">RAO &rarr; PTO</div>
+      <div class="card-price">R$ 1.800</div>
+      <div class="card-detail">1 conexao (VCP) &bull; ~7h &bull; Azul</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ROTA 1: CWB → PTO ============ -->
+<div class="route-section">
+  <div class="route-header direct">
+    <div>
+      <div class="route-title">CWB &rarr; PTO <span class="best-tag">Melhor Opcao</span></div>
+      <div class="route-airports">Curitiba (Afonso Pena) &rarr; Pato Branco (Juvenal Cardoso)</div>
+    </div>
+    <div class="route-badge">Voo Direto</div>
+  </div>
+  <table class="flights-table">
+    <thead>
+      <tr>
+        <th>Cia Aerea</th>
+        <th>Horario</th>
+        <th>Escalas</th>
+        <th>Duracao</th>
+        <th style="text-align:right">Preco (ida+volta)</th>
+        <th style="text-align:center">Comprar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <div class="airline-cell">
+            <div class="airline-logo">AD</div>
+            <div>
+              <div class="airline-name">Azul</div>
+              <div style="font-size:9px;color:#888">ATR 72-600</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <span class="time-display">11:50</span>
+          <span class="time-arrow">&rarr;</span>
+          <span class="time-display">13:05</span>
+        </td>
+        <td><span class="stops-badge stops-0">Direto</span></td>
+        <td>
+          <div class="duration-cell">1h 15min</div>
+        </td>
+        <td class="price-cell">
+          <div class="price-ida">ida R$ 479</div>
+          <div class="price-idavolta">R$ 958</div>
+          <div class="price-label">ida + volta</div>
+        </td>
+        <td style="text-align:center">
+          <a class="btn-comprar green" href="https://passagens.voeazul.com.br/en/flights-from-curitiba-to-pato-branco">COMPRAR</a>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="airline-cell">
+            <div class="airline-logo">AD</div>
+            <div>
+              <div class="airline-name">Azul</div>
+              <div style="font-size:9px;color:#888">via Decolar</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <span class="time-display">11:50</span>
+          <span class="time-arrow">&rarr;</span>
+          <span class="time-display">13:05</span>
+        </td>
+        <td><span class="stops-badge stops-0">Direto</span></td>
+        <td>
+          <div class="duration-cell">1h 15min</div>
+        </td>
+        <td class="price-cell">
+          <div class="price-ida">ida R$ 728</div>
+          <div class="price-idavolta">R$ 1.456</div>
+          <div class="price-label">ida + volta</div>
+        </td>
+        <td style="text-align:center">
+          <a class="btn-comprar green" href="https://www.decolar.com/passagens-aereas/cwb/pto/passagens-aereas-para-pato+branco-saindo-de-curitiba">COMPRAR</a>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="airline-cell">
+            <div class="airline-logo">AD</div>
+            <div>
+              <div class="airline-name">Azul</div>
+              <div style="font-size:9px;color:#888">via MaxMilhas</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <span class="time-display">11:50</span>
+          <span class="time-arrow">&rarr;</span>
+          <span class="time-display">13:05</span>
+        </td>
+        <td><span class="stops-badge stops-0">Direto</span></td>
+        <td>
+          <div class="duration-cell">1h 15min</div>
+        </td>
+        <td class="price-cell">
+          <div class="price-ida">ida R$ 333</div>
+          <div class="price-idavolta">R$ 666</div>
+          <div class="price-label">ida + volta (milhas)</div>
+        </td>
+        <td style="text-align:center">
+          <a class="btn-comprar green" href="https://www.maxmilhas.com.br/passagens-aereas/curitiba-br/aeroporto-de-pato-branco-br">COMPRAR</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ============ ROTA 2: NVT → PTO ============ -->
+<div class="route-section">
+  <div class="route-header connection">
+    <div>
+      <div class="route-title">NVT &rarr; PTO</div>
+      <div class="route-airports">Navegantes (Min. V. Konder) &rarr; Pato Branco (Juvenal Cardoso)</div>
+    </div>
+    <div class="route-badge">1 Conexao</div>
+  </div>
+  <table class="flights-table">
+    <thead>
+      <tr>
+        <th>Cia Aerea</th>
+        <th>Horario</th>
+        <th>Escalas</th>
+        <th>Duracao</th>
+        <th style="text-align:right">Preco (ida+volta)</th>
+        <th style="text-align:center">Comprar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <div class="airline-cell">
+            <div class="airline-logo">AD</div>
+            <div>
+              <div class="airline-name">Azul</div>
+              <div style="font-size:9px;color:#888">ATR 72 + ATR 72</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <span class="time-display">08:30</span>
+          <span class="time-arrow">&rarr;</span>
+          <span class="time-display">13:05</span>
+        </td>
+        <td>
+          <span class="stops-badge stops-1">1 parada</span>
+          <div class="connection-info">via CWB (Curitiba)</div>
+        </td>
+        <td>
+          <div class="duration-cell">~3h 30min</div>
+        </td>
+        <td class="price-cell">
+          <div class="price-ida">ida ~R$ 700</div>
+          <div class="price-idavolta">R$ 1.400</div>
+          <div class="price-label">ida + volta</div>
+        </td>
+        <td style="text-align:center">
+          <a class="btn-comprar" href="https://www.kayak.com.br/voos/NVT/PTO/2026-08-08">COMPRAR</a>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="airline-cell">
+            <div class="airline-logo">AD</div>
+            <div>
+              <div class="airline-name">Azul</div>
+              <div style="font-size:9px;color:#888">via Campinas</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <span class="time-display">06:00</span>
+          <span class="time-arrow">&rarr;</span>
+          <span class="time-display">15:05</span>
+        </td>
+        <td>
+          <span class="stops-badge stops-1">1 parada</span>
+          <div class="connection-info">via VCP (Campinas)</div>
+        </td>
+        <td>
+          <div class="duration-cell">~5h - 7h</div>
+        </td>
+        <td class="price-cell">
+          <div class="price-ida">ida ~R$ 900</div>
+          <div class="price-idavolta">R$ 1.800</div>
+          <div class="price-label">ida + volta</div>
+        </td>
+        <td style="text-align:center">
+          <a class="btn-comprar" href="https://br.trip.com/flights/navegantes-to-pato-branco/airfares-nvt-pto/">COMPRAR</a>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="airline-cell">
+            <div class="airline-logo">AD</div>
+            <div>
+              <div class="airline-name">Azul</div>
+              <div style="font-size:9px;color:#888">via Skyscanner</div>
+            </div>
+          </div>
+        </td>
+        <td colspan="3" style="color:#666;font-style:italic">
+          Horarios variam conforme disponibilidade — consulte no link
+        </td>
+        <td class="price-cell">
+          <div class="price-ida">ida ~R$ 1.093</div>
+          <div class="price-idavolta">R$ 2.185</div>
+          <div class="price-label">ida + volta</div>
+        </td>
+        <td style="text-align:center">
+          <a class="btn-comprar" href="https://www.skyscanner.com.br/rotas/nvt/pto/">COMPRAR</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ============ ROTA 3: RAO → PTO ============ -->
+<div class="route-section">
+  <div class="route-header connection2">
+    <div>
+      <div class="route-title">RAO &rarr; PTO</div>
+      <div class="route-airports">Ribeirao Preto (Dr. Leite Lopes) &rarr; Pato Branco (Juvenal Cardoso)</div>
+    </div>
+    <div class="route-badge">1-2 Conexoes</div>
+  </div>
+  <table class="flights-table">
+    <thead>
+      <tr>
+        <th>Cia Aerea</th>
+        <th>Horario</th>
+        <th>Escalas</th>
+        <th>Duracao</th>
+        <th style="text-align:right">Preco (ida+volta)</th>
+        <th style="text-align:center">Comprar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <div class="airline-cell">
+            <div class="airline-logo">AD</div>
+            <div>
+              <div class="airline-name">Azul</div>
+              <div style="font-size:9px;color:#888">RAO-VCP-PTO</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <span class="time-display">~07:00</span>
+          <span class="time-arrow">&rarr;</span>
+          <span class="time-display">~15:05</span>
+        </td>
+        <td>
+          <span class="stops-badge stops-1">1 parada</span>
+          <div class="connection-info">via VCP (Campinas)</div>
+        </td>
+        <td>
+          <div class="duration-cell">~6h - 8h</div>
+        </td>
+        <td class="price-cell">
+          <div class="price-ida">ida ~R$ 800</div>
+          <div class="price-idavolta">R$ 1.600</div>
+          <div class="price-label">ida + volta</div>
+        </td>
+        <td style="text-align:center">
+          <a class="btn-comprar pink" href="https://www.google.com/travel/flights/flights-from-ribeirao-preto-to-pato-branco.html?gl=BR&hl=pt-BR">COMPRAR</a>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="airline-cell">
+            <div class="airline-logo">AD</div>
+            <div>
+              <div class="airline-name">Azul</div>
+              <div style="font-size:9px;color:#888">RAO-VCP-CWB-PTO</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <span class="time-display">~06:00</span>
+          <span class="time-arrow">&rarr;</span>
+          <span class="time-display">~17:00</span>
+        </td>
+        <td>
+          <span class="stops-badge stops-2">2 paradas</span>
+          <div class="connection-info">via VCP + CWB</div>
+        </td>
+        <td>
+          <div class="duration-cell">~8h - 12h</div>
+        </td>
+        <td class="price-cell">
+          <div class="price-ida">ida ~R$ 1.000</div>
+          <div class="price-idavolta">R$ 2.000</div>
+          <div class="price-label">ida + volta</div>
+        </td>
+        <td style="text-align:center">
+          <a class="btn-comprar pink" href="https://www.maxmilhas.com.br/passagens-aereas/ribeirao-preto-br/aeroporto-de-pato-branco-br">COMPRAR</a>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="airline-cell">
+            <div class="airline-logo">AD</div>
+            <div>
+              <div class="airline-name">Azul</div>
+              <div style="font-size:9px;color:#888">via Kayak</div>
+            </div>
+          </div>
+        </td>
+        <td colspan="3" style="color:#666;font-style:italic">
+          Horarios variam conforme disponibilidade — consulte no link
+        </td>
+        <td class="price-cell">
+          <div class="price-ida">ida ~R$ 900</div>
+          <div class="price-idavolta">R$ 1.800</div>
+          <div class="price-label">ida + volta</div>
+        </td>
+        <td style="text-align:center">
+          <a class="btn-comprar pink" href="https://www.kayak.com.br/voos/RAO/PTO/2026-08-08">COMPRAR</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- INFO -->
+<div class="info-bar">
+  <div class="info-icon">&#9888;</div>
+  <div class="info-text">
+    <strong>Aviso:</strong> Precos estimados com base em dados publicos de abril/2026. Valores reais podem variar conforme disponibilidade e antecedencia.
+    Os botoes "COMPRAR" direcionam para os sites oficiais onde voce pode consultar precos atualizados e finalizar a compra.
+    <strong>Dica:</strong> Reserve com pelo menos 100 dias de antecedencia para melhores precos. O melhor dia para comprar e segunda-feira.
+  </div>
+</div>
+
+<div class="footer">
+  Gerado em 01/04/2026 &bull; Dados: Azul, Google Flights, Kayak, Skyscanner, Decolar, MaxMilhas, Trip.com &bull; Destino: Pato Branco &mdash; PR
+</div>
+
+</body>
+</html>
